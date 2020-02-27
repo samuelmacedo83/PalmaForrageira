@@ -21,8 +21,12 @@ Produtividade1=function(Teste){
   # DadosMatN <- paste( "C:/_PalmaForrageira/", "DadosMatN.R",sep="")
   # rede <- paste( "C:/_PalmaForrageira/", "rede.R",sep="")
 
-  load("extdata/DadosMatN.R")
-  load("extdata/rede.R")
+#   load("extdata/DadosMatN.R")
+#   load("extdata/rede.R")
+
+  load(system.file("extdata/DadosMatN.R", package = "PalmaForrageira"))
+  load(system.file("extdata/rede.R", package = "PalmaForrageira"))
+
   get=getNormParameters(DadosEN)
 
   Norma=rbind(get$colMaxima,get$colMinima)[,-7]

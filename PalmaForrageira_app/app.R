@@ -1,54 +1,45 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Palma Forrageira v0.0.1"),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            # Input: Select a file ----
-            fileInput("file1", "Choose CSV File",
-                      multiple = FALSE,
+            fileInput("file1", "Arquivo",
+                      multiple = TRUE,
                       accept = c("text/csv",
                                  "text/comma-separated-values,text/plain",
                                  ".csv")),
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("distPlot")
+            tabsetPanel(
+                tabPanel("Predição", DT::dataTableOutput("contents")),
+                tabPanel("Produtividade", verbatimTextOutput("summary"))
+            )
         )
     )
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
+    output$contents <- DT::renderDataTable(DT::datatable({
+        if(is.null(input$file1)){
+          NULL
+        } else{
+          dados <- read.table(input$file1$datapath, header = TRUE)
+          resultados <- PalmaForrageira:::Produtividade1(dados)
+          round(data.frame(dados, Predito = resultados$Predito),
+                digits = 2)
 
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+        }
+        }))
 }
 
 # Run the application
