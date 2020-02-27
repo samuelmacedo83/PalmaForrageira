@@ -19,9 +19,11 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-          DT::dataTableOutput("contents")
+            tabsetPanel(
+                tabPanel("Predição", DT::dataTableOutput("contents")),
+                tabPanel("Produtividade", verbatimTextOutput("summary"))
+            )
         )
-
     )
 )
 
