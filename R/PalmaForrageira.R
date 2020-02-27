@@ -20,7 +20,8 @@ require(rpanel)
 panel=rp.control("Palma Forrageira ",size = c(700, 400),Pars= c(CRq=29.91,	14.89,	8.94,	1.05,	34,	2.09),Resultado="Resultado")
 
 # image.file <- paste( "C:/_PalmaForrageira/", "fig.gif",sep="")
-image.file <- "extdata/fig.gif"
+
+image.file <- system.file("extdata/fig.gif", package = "PalmaForrageira")
 rp.image(panel, image.file)
 
 FuncaoMenu=function(panel){
@@ -57,11 +58,11 @@ rp.menu(panel,menu,labels=list(list('Adubacao',"Plantio", "Cobertura"),
 
 
 digitar=function(panel){
-  browser()
+ # browser()
   panel=rp.control("Palma Forrageira ",size = c(700, 400),Pars= c(CRq=29.91,	14.89,	8.94,	1.05,	34,	2.09),Resultado="Resultado")
 
   #image.file <- paste( "C:/_PalmaForrageira/", "fig.gif",sep="")
-  image.file <- "extdata/fig.gif"
+  image.file <- system.file("extdata/fig.gif", package = "PalmaForrageira")
   rp.image(panel, image.file)
   rp.menu(panel,menu,labels=list(list('Adubacao',"Plantio", "Cobertura"),
                                  list('Estimativa da area do cladodio',"AC(cm²) = CC x LC x 0,693","Ajuste por Redes Neurais artificias"),
@@ -99,7 +100,7 @@ digitarAF=function(panel){
   panel=rp.control("Palma Forrageira ",size = c(700, 400),Pars= c(CRq=29.91,	LRq=14.89),Resultado="Resultado")
 
   #image.file <- paste( "C:/_PalmaForrageira/", "fig.gif",sep="")
-  image.file <- "extdata/fig.gif"
+  image.file <- system.file("extdata/fig.gif", package = "PalmaForrageira")
   rp.image(panel, image.file)
   rp.menu(panel,menu,labels=list(list('Adubacao',"Plantio", "Cobertura"),
                                  list('Estimativa da area do cladodio',"AC(cm²) = CC x LC x 0,693","Ajuste por Redes Neurais artificias"),
