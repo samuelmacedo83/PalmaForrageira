@@ -1,0 +1,27 @@
+---
+title: "Palma Forrageira"
+output:
+  github_document:
+    fig_width: 9
+    fig_height: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instalar
+
+Para instalar a versão mais recente do pacote use estes comandos no R
+
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("samuelmacedo83/PalmaForrageira")
+```
+
+Depois de instalado o pacote use este comando para abrir o aplicativo 
+
+```{r eval=FALSE}
+shiny::runApp('PalmaForrageira_app')
+```
+
