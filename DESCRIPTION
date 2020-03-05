@@ -15,6 +15,5 @@ Depends:
 Imports:
     DT,
     htmlwidgets,
-    rpanel,
     RSNNS,
     shiny
