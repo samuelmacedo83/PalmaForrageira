@@ -13,5 +13,5 @@ devtools::install_github("samuelmacedo83/PalmaForrageira")
 Depois de instalado o pacote use este comando para abrir o aplicativo
 
 ``` r
-shiny::runApp('PalmaForrageira_app')
+shiny::runApp('app.R')
 ```
