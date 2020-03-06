@@ -1,11 +1,10 @@
 library(shiny)
 library(shinyWidgets)
 
-
 tipo_espacamento <- c("Simples", "Fileiras Duplas", "Três Fileiras", "Quatro Fileiras")
 
 ui <- fluidPage(
-    navbarPage("Palma Forrageira v0.01",
+    navbarPage("Palma Forrageira v0.0.1",
                tabPanel("Produtividade",
                         sidebarLayout(
                             sidebarPanel(width = 4,
@@ -61,14 +60,17 @@ ui <- fluidPage(
                tabPanel("Predição",
                         sidebarLayout(
                             sidebarPanel(width = 3,
-                                fileInput("file1", "Arquivo",
-                                           multiple = TRUE,
-                                           accept = c("text/csv",
-                                          "text/comma-separated-values,text/plain",
-                                          ".csv"))
+                                         numericInput("CRq", "CRq (cm)", value = 29.91),
+                                         numericInput("LRq", "LRq (cm)", value = 14.89),
+                                         numericInput("Erq", "Erq (mm)", value = 8.94),
+                                         numericInput("ALT", "ALT (m)", value = 1.05),
+                                         numericInput("NRQ", "NRQ (un)", value = 34),
+                                         numericInput("ATC", "ATC (m²)", value = 2.09)
                                 ),
                                 mainPanel(
+                                    column(5,
                                     DT::dataTableOutput("contents")
+                                    )
                                 )
                         )
                )
@@ -77,17 +79,24 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-    output$contents <- DT::renderDataTable(DT::datatable({
-        if(is.null(input$file1)){
-          NULL
-        } else{
-          dados <- read.table(input$file1$datapath, header = TRUE)
-          resultados <- PalmaForrageira:::Produtividade1(dados)
-          round(data.frame(dados, Predito = resultados$Predito),
-                digits = 2)
+    # output$contents <- DT::renderDataTable(DT::datatable({
+    #     if(is.null(input$file1)){
+    #       NULL
+    #     } else{
+    #       dados <- read.table(input$file1$datapath, header = TRUE)
+    #       resultados <- PalmaForrageira:::Produtividade1(dados)
+    #       round(data.frame(dados, Predito = resultados$Predito),
+    #             digits = 2)
+    #
+    #     }
+    #     }))
 
-        }
-        }))
+    output$contents <- DT::renderDataTable(DT::datatable({
+        dados <- matrix(c(input$CRq, input$LRq, input$Erq, input$ALT, input$NRQ, input$ATC), ncol = 6)
+        produtividade <- PalmaForrageira:::Produtividade1(dados)
+        round(data.frame(Predito = produtividade),
+             digits = 2)
+    }, rownames = FALSE,  options = list(dom = 't') ))
 
     output$fornecimento <- DT::renderDataTable(DT::datatable({
         cladodios <- c(input$p1, input$p2,
@@ -95,11 +104,12 @@ server <- function(input, output, session) {
                        input$p5, input$p6,
                        input$p7, input$p8)
 
-        PalmaForrageira:::fornecimento(input$qtd_animais, input$demanda_animal,
-                                 cladodios,
-                                 input$comp, input$larg,
-                                 input$espacamento)
-    }))
+        dados <- PalmaForrageira:::fornecimento(input$qtd_animais, input$demanda_animal,
+                                       cladodios,
+                                       input$comp, input$larg,
+                                       input$espacamento)
+        round(dados, digits = 2)
+    }, rownames = FALSE, options = list(dom = 't') ))
 }
 
 # Run the application
