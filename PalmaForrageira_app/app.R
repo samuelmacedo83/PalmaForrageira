@@ -6,6 +6,10 @@ tipo_espacamento <- c("Simples", "Fileiras Duplas", "Três Fileiras", "Quatro Fi
 ui <- fluidPage(
     navbarPage("Palma Forrageira v0.0.1",
                tabPanel("Produtividade",
+                       img(src = "fig.gif", style = "position: absolute; width: 65%; height: 65%;",
+                           hspace = "450px", vspace = "150px"
+                          # ,  width = "65%", height = "65%"
+                           ),
                         sidebarLayout(
                             sidebarPanel(width = 4,
                                          strong(p("Área", align = "center")),
@@ -58,8 +62,11 @@ ui <- fluidPage(
                         )
                ),
                tabPanel("Predição",
+                        img(src = "fig.gif", style = "position: absolute",
+                            hspace = "450px", vspace = "150px",
+                            width = "65%", height = "65%"),
                         sidebarLayout(
-                            sidebarPanel(width = 3,
+                            sidebarPanel(width = 4,
                                          numericInput("CRq", "CRq (cm)", value = 29.91),
                                          numericInput("LRq", "LRq (cm)", value = 14.89),
                                          numericInput("Erq", "Erq (mm)", value = 8.94),
