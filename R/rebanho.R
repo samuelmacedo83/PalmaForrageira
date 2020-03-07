@@ -11,9 +11,6 @@ espacamento <- function(comprimento_m, largura_m, tipo){
   if(tipo == "Quatro Fileiras") return(area / 0.375)
 }
 
-#cladodios <-  c(10,	8,	9,	9,	10,	11,	12,	13)
-
-
 produtividade_palmal <- function(cladodios, comprimento_m, largura_m, tipo){
 
   produtividade_planta <- 8.9039 + 0.9765 * mean(cladodios)
@@ -31,6 +28,3 @@ fornecimento <- function(qtd_animais, demanda_animal,
   meses <- dias / 30
   data.frame(Dias = dias, Meses = meses)
   }
-
-
-

@@ -86,17 +86,6 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-    # output$contents <- DT::renderDataTable(DT::datatable({
-    #     if(is.null(input$file1)){
-    #       NULL
-    #     } else{
-    #       dados <- read.table(input$file1$datapath, header = TRUE)
-    #       resultados <- PalmaForrageira:::Produtividade1(dados)
-    #       round(data.frame(dados, Predito = resultados$Predito),
-    #             digits = 2)
-    #
-    #     }
-    #     }))
 
     output$contents <- DT::renderDataTable(DT::datatable({
         dados <- matrix(c(input$CRq, input$LRq, input$Erq, input$ALT, input$NRQ, input$ATC), ncol = 6)
