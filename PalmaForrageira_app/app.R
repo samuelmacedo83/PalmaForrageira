@@ -5,7 +5,11 @@ tipo_espacamento <- c("Simples", "Fileiras Duplas", "Três Fileiras", "Quatro Fi
 
 ui <- fluidPage(
     navbarPage("Palma Forrageira v0.0.1",
-               tabPanel("Produtividade",
+               tabPanel("Regressão",
+                       img(src = "fig.gif", style = "position: absolute; width: 65%; height: 65%;",
+                           hspace = "450px", vspace = "150px"
+                          # ,  width = "65%", height = "65%"
+                           ),
                         sidebarLayout(
                             sidebarPanel(width = 4,
                                          strong(p("Área", align = "center")),
@@ -57,9 +61,12 @@ ui <- fluidPage(
                                 ))
                         )
                ),
-               tabPanel("Predição",
+               tabPanel("Redes neurais",
+                        img(src = "fig.gif", style = "position: absolute",
+                            hspace = "450px", vspace = "150px",
+                            width = "65%", height = "65%"),
                         sidebarLayout(
-                            sidebarPanel(width = 3,
+                            sidebarPanel(width = 4,
                                          numericInput("CRq", "CRq (cm)", value = 29.91),
                                          numericInput("LRq", "LRq (cm)", value = 14.89),
                                          numericInput("Erq", "Erq (mm)", value = 8.94),
@@ -79,22 +86,11 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-    # output$contents <- DT::renderDataTable(DT::datatable({
-    #     if(is.null(input$file1)){
-    #       NULL
-    #     } else{
-    #       dados <- read.table(input$file1$datapath, header = TRUE)
-    #       resultados <- PalmaForrageira:::Produtividade1(dados)
-    #       round(data.frame(dados, Predito = resultados$Predito),
-    #             digits = 2)
-    #
-    #     }
-    #     }))
 
     output$contents <- DT::renderDataTable(DT::datatable({
         dados <- matrix(c(input$CRq, input$LRq, input$Erq, input$ALT, input$NRQ, input$ATC), ncol = 6)
         produtividade <- PalmaForrageira:::Produtividade1(dados)
-        round(data.frame(Predito = produtividade),
+        round(data.frame('Produtividade (kg/Planta)' = produtividade, check.names = FALSE),
              digits = 2)
     }, rownames = FALSE,  options = list(dom = 't') ))
 
