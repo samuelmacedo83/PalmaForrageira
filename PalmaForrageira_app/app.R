@@ -5,7 +5,7 @@ tipo_espacamento <- c("Simples", "Fileiras Duplas", "Três Fileiras", "Quatro Fi
 
 ui <- fluidPage(
     navbarPage("Palma Forrageira v0.0.1",
-               tabPanel("Produtividade",
+               tabPanel("Regressão",
                        img(src = "fig.gif", style = "position: absolute; width: 65%; height: 65%;",
                            hspace = "450px", vspace = "150px"
                           # ,  width = "65%", height = "65%"
@@ -61,7 +61,7 @@ ui <- fluidPage(
                                 ))
                         )
                ),
-               tabPanel("Predição",
+               tabPanel("Redes neurais",
                         img(src = "fig.gif", style = "position: absolute",
                             hspace = "450px", vspace = "150px",
                             width = "65%", height = "65%"),
