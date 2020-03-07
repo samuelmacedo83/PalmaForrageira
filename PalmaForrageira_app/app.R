@@ -90,7 +90,7 @@ server <- function(input, output, session) {
     output$contents <- DT::renderDataTable(DT::datatable({
         dados <- matrix(c(input$CRq, input$LRq, input$Erq, input$ALT, input$NRQ, input$ATC), ncol = 6)
         produtividade <- PalmaForrageira:::Produtividade1(dados)
-        round(data.frame(Predito = produtividade),
+        round(data.frame('Produtividade (kg/Planta)' = produtividade, check.names = FALSE),
              digits = 2)
     }, rownames = FALSE,  options = list(dom = 't') ))
 
