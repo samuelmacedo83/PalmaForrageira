@@ -87,6 +87,13 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
 
+    # # uncomment this when use portable-r
+    # # close the R session when Chrome closes
+    # session$onSessionEnded(function() {
+    #     stopApp()
+    #     q("no")
+    # })
+
     output$contents <- DT::renderDataTable(DT::datatable({
         dados <- matrix(c(input$CRq, input$LRq, input$Erq, input$ALT, input$NRQ, input$ATC), ncol = 6)
         produtividade <- PalmaForrageira:::Produtividade1(dados)
